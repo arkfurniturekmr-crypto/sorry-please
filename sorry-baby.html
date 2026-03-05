@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorry Baby 🥹</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400;1,600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink-deep: #e8789a;
+    --pink-mid: #f4a7be;
+    --pink-light: #fde8f0;
+    --pink-pale: #fff5f8;
+    --rose: #c85a7c;
+    --blush: #f9d0df;
+    --text-dark: #5a2a3a;
+    --text-mid: #8a4a60;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'Lora', serif;
+    background: var(--pink-pale);
+    color: var(--text-dark);
+    cursor: default;
+  }
+
+  /* ── PAGES ── */
+  .page {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.8s ease;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  .page.active { opacity: 1; pointer-events: all; }
+
+  /* ── BACKGROUND PETALS ── */
+  .bg-flowers {
+    position: absolute; inset: 0;
+    overflow: hidden; pointer-events: none; z-index: 0;
+  }
+  .petal {
+    position: absolute;
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    animation: floatPetal linear infinite;
+    opacity: 0.18;
+  }
+  @keyframes floatPetal {
+    0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.2; }
+    90%  { opacity: 0.18; }
+    100% { transform: translateY(-20vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ── PAGE 1 ── */
+  #p1 { background: linear-gradient(160deg, #fff0f5 0%, #fde0ec 50%, #fbc9dd 100%); }
+
+  .p1-caption {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--rose);
+    text-align: center;
+    line-height: 1.3;
+    text-shadow: 0 2px 12px rgba(200,90,124,0.2);
+    position: relative; z-index: 1;
+    animation: fadeUp 1s ease both;
+  }
+  .p1-emoji {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    margin: 1.5rem 0 0.8rem;
+    display: block;
+    animation: fadeUp 1s 0.3s ease both;
+    position: relative; z-index: 1;
+  }
+  .p1-note {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    color: var(--text-mid);
+    text-align: center;
+    animation: fadeUp 1s 0.6s ease both;
+    position: relative; z-index: 1;
+    margin-bottom: 2.5rem;
+  }
+  .p1-hint {
+    font-family: 'Lora', serif;
+    font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+    color: var(--pink-deep);
+    opacity: 0.7;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    animation: pulse 2s 1.5s ease infinite;
+    position: relative; z-index: 1;
+    margin-bottom: 0.4rem;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+  .pray-btn {
+    font-size: clamp(3.5rem, 9vw, 6rem);
+    background: none; border: none;
+    cursor: pointer;
+    position: relative; z-index: 1;
+    animation: fadeUp 1s 0.9s ease both, bounce 2s 2s ease infinite;
+    filter: drop-shadow(0 4px 14px rgba(200,90,124,0.35));
+    transition: transform 0.15s;
+  }
+  .pray-btn:hover { transform: scale(1.15); }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+  /* ── CONFETTI CANVAS ── */
+  #confetti-canvas {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 999;
+  }
+
+  /* ── PAGE 2 — LETTER ── */
+  #p2 { background: linear-gradient(150deg, #fff5f8 0%, #fde8f0 60%, #f9d0df 100%); }
+
+  .letter-wrap {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(244,167,190,0.5);
+    border-radius: 20px;
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3.5rem);
+    max-width: 680px; width: 100%;
+    box-shadow: 0 8px 40px rgba(200,90,124,0.12), 0 2px 0 rgba(255,255,255,0.9) inset;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.9s ease both;
+    max-height: 85vh; overflow-y: auto;
+  }
+  .letter-wrap::-webkit-scrollbar { width: 4px; }
+  .letter-wrap::-webkit-scrollbar-track { background: transparent; }
+  .letter-wrap::-webkit-scrollbar-thumb { background: var(--pink-mid); border-radius: 2px; }
+
+  .letter-heading {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    color: var(--rose);
+    text-align: center;
+    margin-bottom: 1.4rem;
+  }
+  .letter-divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--pink-deep), transparent);
+    margin: 0 auto 1.4rem;
+  }
+  .letter-body {
+    font-family: 'Lora', serif;
+    font-size: clamp(0.95rem, 2vw, 1.12rem);
+    line-height: 1.85;
+    color: var(--text-dark);
+    font-style: italic;
+  }
+  .letter-body p { margin-bottom: 1rem; }
+  .next-btn {
+    display: block; margin: 1.8rem auto 0;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    background: none; border: none;
+    cursor: pointer;
+    animation: bounce 2s 1s ease infinite;
+    filter: drop-shadow(0 3px 10px rgba(200,90,124,0.3));
+    transition: transform 0.15s;
+  }
+  .next-btn:hover { transform: scale(1.15); }
+
+  /* ── PAGE 3 ── */
+  #p3 { background: linear-gradient(145deg, #fde8f0 0%, #fbc9dd 50%, #f4a7be 100%); }
+
+  .p3-body {
+    font-family: 'Lora', serif;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    line-height: 1.9;
+    color: var(--text-dark);
+    text-align: center;
+    max-width: 600px;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.9s ease both;
+    font-style: italic;
+    background: rgba(255,255,255,0.55);
+    padding: clamp(1.2rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);
+    border-radius: 18px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 6px 30px rgba(200,90,124,0.1);
+    max-height: 80vh; overflow-y: auto;
+  }
+  .p3-body::-webkit-scrollbar { width: 4px; }
+  .p3-body::-webkit-scrollbar-thumb { background: var(--pink-mid); border-radius: 2px; }
+
+  .p3-caption {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 5.5vw, 3.5rem);
+    color: var(--rose);
+    margin: 1.2rem 0 0.5rem;
+    display: block;
+    text-shadow: 0 2px 10px rgba(200,90,124,0.2);
+  }
+
+  /* ── PAGE 4 ── */
+  #p4 { background: linear-gradient(155deg, #fff0f5 0%, #fde0ec 40%, #f9c8db 100%); }
+
+  .p4-wrap {
+    max-width: 620px; width: 100%;
+    text-align: center;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.9s ease both;
+    background: rgba(255,255,255,0.65);
+    padding: clamp(1.5rem,3.5vw,3rem) clamp(1.5rem,4vw,3rem);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(244,167,190,0.5);
+    box-shadow: 0 8px 40px rgba(200,90,124,0.12);
+    max-height: 85vh; overflow-y: auto;
+  }
+  .p4-wrap::-webkit-scrollbar { width: 4px; }
+  .p4-wrap::-webkit-scrollbar-thumb { background: var(--pink-mid); border-radius: 2px; }
+
+  .p4-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 5.5vw, 3.8rem);
+    color: var(--rose);
+    margin-bottom: 1rem;
+  }
+  .p4-text {
+    font-family: 'Lora', serif;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    line-height: 1.85;
+    color: var(--text-dark);
+    font-style: italic;
+    margin-bottom: 1.2rem;
+  }
+  .heart-float {
+    display: flex; justify-content: center; gap: 0.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-top: 1rem;
+    animation: heartbeat 1.4s ease infinite;
+  }
+  @keyframes heartbeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+
+  /* ── SHARED ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── FLOWER DECO ── */
+  .deco-flower {
+    position: absolute;
+    pointer-events: none;
+    font-size: clamp(2rem, 5vw, 4rem);
+    opacity: 0.13;
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- PAGE 1 -->
+<section class="page active" id="p1">
+  <div class="bg-flowers" id="petals1"></div>
+  <span class="deco-flower" style="top:5%;left:3%;transform:rotate(-20deg)">🌸</span>
+  <span class="deco-flower" style="bottom:8%;right:5%;transform:rotate(15deg)">🌺</span>
+  <span class="deco-flower" style="top:12%;right:8%;transform:rotate(30deg)">🌷</span>
+  <span class="deco-flower" style="bottom:15%;left:6%;transform:rotate(-10deg)">🌸</span>
+
+  <h1 class="p1-caption">SORRY BABY,<br>Itna bhi naraz<br>Mat Hoo Please 🥺</h1>
+  <span class="p1-emoji">🥹</span>
+  <p class="p1-note">Please Maaf Krdey please 🙏🏼</p>
+  <span class="p1-hint">✨ tap to continue ✨</span>
+  <button class="pray-btn" onclick="goToPage(2)" title="Tap to continue">🙏🏼</button>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="p2">
+  <div class="bg-flowers" id="petals2"></div>
+  <span class="deco-flower" style="top:3%;right:4%;transform:rotate(20deg)">🌸</span>
+  <span class="deco-flower" style="bottom:5%;left:3%;transform:rotate(-15deg)">🌺</span>
+
+  <div class="letter-wrap">
+    <h2 class="letter-heading">I am Literally Sorry 💌</h2>
+    <div class="letter-divider"></div>
+    <div class="letter-body">
+      <p>Baby, I know sometimes I just do over by doing stuff which you stop me from doing and I am sorry — aaj even after you saying it, I did it.</p>
+      <p>I did it cause I knew you weren't gonna eat food and you will skip your meal. Already you are sick, and yeh sab stress and it is so hard for you to study too. All these mixed up hokey — it is getting so much for you to handle.</p>
+      <p>And I know agar tum skip karogi meal, it will be another haunting night for you. I am sorry for wtv I did today. I am literally sorry. I was fucking scared — if you keep doing this, like skipping meal, something terrible gonna happen.</p>
+      <p>Please baby, maaf krde. 🥹🫶🏽</p>
+    </div>
+    <button class="next-btn" onclick="goToPage(3)" title="Next page">🫶🏽</button>
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="p3">
+  <div class="bg-flowers" id="petals3"></div>
+  <span class="deco-flower" style="top:4%;left:5%;transform:rotate(-25deg)">🌷</span>
+  <span class="deco-flower" style="bottom:6%;right:4%;transform:rotate(10deg)">🌸</span>
+
+  <div class="p3-body">
+    <p>Baby, tu naraz rahegi toh I cannot survive — wallai I cannot, please. I beg you to forgive me. I know whatever you are doing, you are doing for good.</p>
+    <p>But I cannot live with ur narazgi or without talking. Please also — khud pr zulm mat kro na. Mai hoon, wtv you are stressing about — mujhse baat kro na please.</p>
+    <p>Please baby, all I want is you to be happy and be with me. Please yaar baat krlo. Don't stress, please call me. I am missing you so much.</p>
+    <span class="p3-caption">Please Baby, Call krlo. 📞</span>
+    <button class="next-btn" onclick="goToPage(4)" title="Last page">🥹</button>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section class="page" id="p4">
+  <div class="bg-flowers" id="petals4"></div>
+  <span class="deco-flower" style="top:3%;right:6%;transform:rotate(18deg)">🌺</span>
+  <span class="deco-flower" style="bottom:4%;left:4%;transform:rotate(-22deg)">🌷</span>
+
+  <div class="p4-wrap">
+    <h2 class="p4-title">Please Forgive Me, Baby 🥺</h2>
+    <p class="p4-text">Baby, I hope you forgive me. Baaki sab I wanna talk on call please.</p>
+    <p class="p4-text">Wait kr ru — aaj mat kr na dodge, ghost mujhe, push mujhe — please I beg you baby. Wait kr ru, don't make me suffer by waiting.</p>
+    <p class="p4-text">I know meri jaan call krlegi — please baby please. 🥹</p>
+    <p class="p4-text">I love you so so much, more than you know. Please just — call. That's all I need. 💗</p>
+    <div class="heart-float">💗🌸💗🌸💗</div>
+  </div>
+</section>
+
+<script>
+// ── PETAL GENERATOR ──
+function spawnPetals(containerId) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  const emojis = ['🌸','🌷','🌺','🌹','💮','🏵️'];
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('span');
+    p.className = 'petal';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 10) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    p.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    c.appendChild(p);
+  }
+}
+['petals1','petals2','petals3','petals4'].forEach(spawnPetals);
+
+// ── PAGE NAVIGATION ──
+let currentPage = 1;
+function goToPage(n) {
+  if (n === 2) launchConfetti();
+  document.getElementById('p' + currentPage).classList.remove('active');
+  currentPage = n;
+  const next = document.getElementById('p' + n);
+  next.classList.add('active');
+}
+
+// ── CONFETTI ──
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+let pieces = [];
+let animId = null;
+
+function resizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function launchConfetti() {
+  pieces = [];
+  const items = ['🌸','🌺','🌷','💐','🎊','🎉','💗','🥹','💮'];
+  for (let i = 0; i < 90; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width,
+      y: canvas.height * 0.35 + Math.random() * canvas.height * 0.2,
+      vx: (Math.random() - 0.5) * 7,
+      vy: -(4 + Math.random() * 8),
+      alpha: 1,
+      emoji: items[Math.floor(Math.random() * items.length)],
+      size: 18 + Math.random() * 22,
+      rot: Math.random() * 360,
+      rotV: (Math.random() - 0.5) * 6
+    });
+  }
+  if (animId) cancelAnimationFrame(animId);
+  animateConfetti();
+}
+
+function animateConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let alive = false;
+  for (const p of pieces) {
+    p.x  += p.vx;
+    p.y  += p.vy;
+    p.vy += 0.22;
+    p.rot += p.rotV;
+    p.alpha -= 0.007;
+    if (p.alpha > 0) {
+      alive = true;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.font = p.size + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(p.emoji, 0, 0);
+      ctx.restore();
+    }
+  }
+  if (alive) animId = requestAnimationFrame(animateConfetti);
+  else ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+</script>
+</body>
+</html>
